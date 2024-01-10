@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <thead>
+          <tr>
+            <th width="200">品名</th>
+            <th>單價</th>
+            <th>數量</th>
+            <th width="150">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <tr>
+            <td>{{products[0].title}}</td>
+            <td>{{products[0].price}}</td>
+            <td>{{products[0].num}}</td>
+            <td>$ {{products[0].price * products[0].num}}</td>
+          </tr> -->
+
+          <tr v-for="item in products">
+            <td>{{item.title}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.num}}</td>
+            <td>$ {{item.price * item.num}}</td>
+          </tr>
+
+          <!-- <tr>
+            <td>粉係馬卡龍</td>
+            <td>120</td>
+            <td>2</td>
+            <td>$ 240</td>
+          </tr>
+          <tr>
+            <td>甜蜜左擁右抱</td>
+            <td>200</td>
+            <td>7</td>
+            <td>$ 1400</td>
+          </tr> -->
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="3">總計：</td>
+            <td>NT$ {{total}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <script type="module">
+      const products = [
+        {
+          title: "綠色馬卡龍",
+          price: 120,
+          num: 3,
+        },
+        {
+          title: "粉系馬卡龍",
+          price: 120,
+          num: 2,
+        },
+        {
+          title: "甜蜜左擁右抱",
+          price: 200,
+          num: 7,
+        },
+      ];
+
+      const products2 = products.map((item) => {
+        return {
+          ...item,
+          sum: item.price * item.num,
+        };
+      });
+      console.log(products2)
+      const total =products2.reduce((item,cur)=>{
+        return item + cur.sum
+      },0)
+
+      import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.1/vue.esm-browser.min.js";
+      const app = createApp({
+        data() {
+          return {
+            products,
+            total
+          };
+        },
+        // methods,
+        // mounted,
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>
